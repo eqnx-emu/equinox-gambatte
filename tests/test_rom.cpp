@@ -170,3 +170,13 @@ TEST_CASE("cleanup temp dir") {
     std::error_code ec;
     fs::remove_all(tempDir(), ec);
 }
+
+TEST_CASE("the header tells a Game Boy Color game from a Game Boy one") {
+    std::vector<uint8_t> rom(0x150, 0);
+    CHECK_FALSE(isColorGame(rom));
+    rom[0x143] = 0x80;  // works on both
+    CHECK(isColorGame(rom));
+    rom[0x143] = 0xC0;  // Color only
+    CHECK(isColorGame(rom));
+    CHECK_FALSE(isColorGame(std::vector<uint8_t>(0x100, 0xFF)));  // too short for a header
+}

@@ -105,3 +105,5 @@ std::variant<Rom, RomError> loadRom(const std::string& path) {
     if (bytes->size() > kMaxZipBytes) return RomError::TooBig;
     return sevenZip ? loadFrom7z(*bytes) : loadFromZip(*bytes);
 }
+
+bool isColorGame(const std::vector<uint8_t>& rom) { return rom.size() > 0x143 && (rom[0x143] & 0x80) != 0; }
