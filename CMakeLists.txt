@@ -79,6 +79,8 @@ if (NINTENDO_SWITCH)
     target_link_libraries(equinox-gambatte PRIVATE
         ${EQX_CORE_LIB} SDL2_ttf SDL2 freetype harfbuzz freetype png bz2 z EGL glapi drm_nouveau nx)
 
+    target_compile_definitions(equinox-gambatte PRIVATE EQX_APP_VERSION="${APP_VERSION}")
+
     nx_generate_nacp(equinox-gambatte.nacp NAME "${APP_TITLE}" AUTHOR "${APP_AUTHOR}" VERSION "${APP_VERSION}")
     nx_create_nro(equinox-gambatte NACP equinox-gambatte.nacp ICON ${APP_ICON}
         ROMFS ${CMAKE_CURRENT_SOURCE_DIR}/romfs)
